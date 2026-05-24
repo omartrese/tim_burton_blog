@@ -1,0 +1,67 @@
+---
+import Card from './Card.astro';
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+	posts: CollectionEntry<'blog'>[];
+}
+
+const { posts } = Astro.props;
+---
+
+<div class="slider-container">
+	<div class="slider">
+		{posts.map((post) => (
+			<div class="slider-item">
+				<Card 
+					id={post.id}
+					title={post.data.title}
+					pubDate={post.data.pubDate}
+					heroImage={post.data.heroImage}
+				/>
+			</div>
+		))}
+	</div>
+</div>
+
+<style>
+	.slider-container {
+		width: 100%;
+		padding: 2rem 0;
+		overflow: hidden;
+	}
+
+	.slider {
+		display: flex;
+		gap: 2rem;
+		overflow-x: auto;
+		padding: 1rem 1rem 3rem 1rem;
+		scrollbar-width: thin;
+		scrollbar-color: var(--accent-purple) var(--bg-navy);
+		scroll-snap-type: x mandatory;
+	}
+
+	.slider::-webkit-scrollbar {
+		height: 8px;
+	}
+
+	.slider::-webkit-scrollbar-track {
+		background: var(--bg-navy);
+	}
+
+	.slider::-webkit-scrollbar-thumb {
+		background: var(--accent-purple);
+		border-radius: 4px;
+	}
+
+	.slider-item {
+		flex: 0 0 300px;
+		scroll-snap-align: center;
+	}
+
+	@media (max-width: 720px) {
+		.slider-item {
+			flex: 0 0 260px;
+		}
+	}
+</style>

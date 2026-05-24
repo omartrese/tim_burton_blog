@@ -16,41 +16,90 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 		<BaseHead title={title} description={description} />
 		<style>
 			main {
-				width: calc(100% - 2em);
+				width: 100%;
 				max-width: 100%;
 				margin: 0;
+				background: radial-gradient(circle at top, rgba(138, 43, 226, 0.05) 0%, transparent 50%);
 			}
 			.hero-image {
 				width: 100%;
+				max-width: 1000px;
+				margin: 0 auto 3rem auto;
+				padding: 0 1rem;
 			}
 			.hero-image img {
 				display: block;
 				margin: 0 auto;
-				border-radius: 12px;
-				box-shadow: var(--box-shadow);
+				border-radius: 0;
+				box-shadow: 0 0 30px rgba(0, 0, 0, 0.8), 0 0 15px var(--accent-purple);
 			}
 			.prose {
-				width: 720px;
-				max-width: calc(100% - 2em);
+				width: 650px;
+				max-width: calc(100% - 2rem);
 				margin: auto;
-				padding: 1em;
-				color: rgb(var(--gray-dark));
+				padding: 1rem;
+				color: var(--text-bone);
+				font-size: 1.2rem;
+				line-height: 1.8;
 			}
 			.title {
-				margin-bottom: 1em;
-				padding: 1em 0;
+				margin-bottom: 3rem;
+				padding: 1rem 0;
 				text-align: center;
-				line-height: 1;
 			}
 			.title h1 {
 				margin: 0 0 0.5em 0;
+				font-size: 4rem;
+				color: var(--accent-orange);
+				filter: drop-shadow(0 0 5px rgba(255, 117, 24, 0.3));
 			}
 			.date {
 				margin-bottom: 0.5em;
-				color: rgb(var(--gray));
+				color: var(--accent-purple);
+				font-family: var(--font-title);
+				letter-spacing: 2px;
 			}
 			.last-updated-on {
 				font-style: italic;
+				font-size: 0.9rem;
+			}
+
+			/* Drop Cap Styling */
+			.prose :global(p:first-of-type::first-letter) {
+				float: left;
+				font-family: var(--font-title);
+				font-size: 5rem;
+				line-height: 1;
+				padding-right: 0.5rem;
+				color: var(--accent-orange);
+				text-shadow: 3px 3px 0 var(--accent-purple);
+			}
+
+			/* Stitch Separator */
+			.prose :global(hr) {
+				border: none;
+				height: 20px;
+				background-image: url("data:image/svg+xml,%3Csvg width='60' height='20' viewBox='0 0 60 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 10 L20 10 M30 0 L30 20 M40 10 L60 10' stroke='%238a2be2' stroke-width='2' fill='none'/%3E%3C/svg%3E");
+				background-repeat: repeat-x;
+				background-position: center;
+				margin: 3rem 0;
+				opacity: 0.6;
+			}
+
+			/* Rectangular Images in Content */
+			.prose :global(img) {
+				border-radius: 0;
+				box-shadow: 0 0 15px rgba(0,0,0,0.5);
+				margin: 2rem 0;
+			}
+
+			@media (max-width: 720px) {
+				.title h1 {
+					font-size: 2.5rem;
+				}
+				.prose {
+					font-size: 1.1rem;
+				}
 			}
 		</style>
 	</head>
@@ -75,7 +124,6 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 							}
 						</div>
 						<h1>{title}</h1>
-						<hr />
 					</div>
 					<slot />
 				</div>
