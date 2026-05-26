@@ -14,20 +14,33 @@ const { id, title, pubDate, heroImage } = Astro.props;
 ---
 
 <div class="card">
+	<span style="width: 50px; background-color: brown; border-radius: 10px 0 0 10px;">
+	
+	</span>
 	<a href={`/blog/${id}/`}>
-		{heroImage && (
-			<div class="image-wrapper">
+		<div class="image-wrapper">
+			{heroImage ? (
 				<Image width={720} height={360} src={heroImage} alt="" />
-			</div>
-		)}
+			) : (
+				<Image src="/src/assets/imagePlaceholder.png"
+					alt="Image placeholder"
+					width={420}
+					height={360}
+					class="image-placeholder"
+					aria-hidden="true"
+				/>
+			)}
+		</div>
 		<div class="content">
 			<h4 class="title">{title}</h4>
-			<p class="date">
-				<FormattedDate date={pubDate} />
-			</p>
-		</div>
-		<div class="signature">
-			<Image src={signatureImg} alt="Tim Burton Signature" width={80} />
+			<div class="meta-row">
+				<p class="date">
+					<FormattedDate date={pubDate} />
+				</p>
+				<div class="signature">
+					<Image src={signatureImg} alt="Tim Burton Signature" width={80} />
+				</div>
+			</div>
 		</div>
 	</a>
 </div>
@@ -37,11 +50,13 @@ const { id, title, pubDate, heroImage } = Astro.props;
 		position: relative;
 		background: var(--gray-dark);
 		border: 2px solid var(--accent-purple);
+		border-radius: 15px 0 0 15px;
 		overflow: hidden;
 		transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
 		height: 100%;
 		display: flex;
-		flex-direction: column;
+		flex-direction: row;
+		justify-content: space-between;
 	}
 
 	.card:hover {
@@ -50,18 +65,28 @@ const { id, title, pubDate, heroImage } = Astro.props;
 		border-color: var(--accent-orange);
 	}
 
+	.card a {
+		width: 100%;
+	}
+
 	.image-wrapper {
 		width: 100%;
 		height: 200px;
 		overflow: hidden;
+		background: var(--gray-darker);
 	}
 
-	.image-wrapper img {
+	.image-wrapper img,
+	.image-placeholder {
 		width: 100%;
 		height: 100%;
 		object-fit: cover;
 		transition: transform 0.5s ease;
 		border-radius: 0;
+	}
+
+	.image-placeholder {
+		background: var(--gray-darker);
 	}
 
 	.card:hover .image-wrapper img {
@@ -92,10 +117,15 @@ const { id, title, pubDate, heroImage } = Astro.props;
 		margin: 0;
 	}
 
+	.meta-row {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 1rem;
+		margin-top: 1rem;
+	}
+
 	.signature {
-		position: absolute;
-		bottom: 10px;
-		right: 15px;
 		width: 80px;
 		opacity: 0.3;
 		pointer-events: none;

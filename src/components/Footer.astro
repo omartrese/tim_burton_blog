@@ -4,8 +4,13 @@ const today = new Date();
 
 <footer>
 	<div class="footer-content">
-		&copy; {today.getFullYear()} mirando más allá. 
-		<div class="mist-bottom"></div>
+		<span>
+			&copy; {today.getFullYear()} mirando más allá. 
+		</span>
+		<span>
+			Kamar Layachi Mahboub
+		</span>
+		
 	</div>
 </footer>
 <style>
@@ -20,6 +25,8 @@ const today = new Date();
 		overflow: hidden;
 	}
 	.footer-content {
+		display: flex;
+		justify-content: space-around;
 		position: relative;
 		z-index: 2;
 	}
