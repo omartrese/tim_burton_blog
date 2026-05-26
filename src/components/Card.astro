@@ -1,6 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import FormattedDate from './FormattedDate.astro';
+import placeholderImg from '../assets/imagePlaceholder.png';
 import signatureImg from '../assets/timBurton.png';
 
 interface Props {
@@ -22,7 +23,7 @@ const { id, title, pubDate, heroImage } = Astro.props;
 			{heroImage ? (
 				<Image width={720} height={360} src={heroImage} alt="" />
 			) : (
-				<Image src="/assets/imagePlaceholder.png"
+				<Image src={placeholderImg}
 					alt="Image placeholder"
 					width={420}
 					height={360}
